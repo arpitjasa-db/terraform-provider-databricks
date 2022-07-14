@@ -83,6 +83,19 @@ func resourceClusterSchema() map[string]*schema.Schema {
 		s["driver_node_type_id"].ConflictsWith = []string{"driver_instance_pool_id", "instance_pool_id"}
 		s["node_type_id"].ConflictsWith = []string{"driver_instance_pool_id", "instance_pool_id"}
 
+		p, err := common.SchemaPath(s, "workload_type", "clients", "notebooks")
+		if err == nil {
+			p.Optional = true
+			p.Required = false
+			p.Default = true
+		}
+		p, err = common.SchemaPath(s, "workload_type", "clients", "jobs")
+		if err == nil {
+			p.Optional = true
+			p.Required = false
+			p.Default = true
+		}
+
 		s["is_pinned"] = &schema.Schema{
 			Type:     schema.TypeBool,
 			Optional: true,
